@@ -1,7 +1,7 @@
 part of 'pages.dart';
 
 class DetailPage extends StatelessWidget {
-  final Map<String, dynamic> kamus;
+  final Kamus kamus;
 
   const DetailPage({this.kamus});
 
@@ -10,20 +10,19 @@ class DetailPage extends StatelessWidget {
     return Template(
       child: ListView(
         children: [
-          SizedBox(height: 20),
           NavbarWidget(
+            title: 'Kamus Alune - Indonesia',
             showInfo: false,
             onBackButtonPressed: () {
               Navigator.of(context).pop();
             },
           ),
-          SizedBox(height: 32),
           Padding(
             padding: EdgeInsets.all(10),
             child: ListCardWidget(
-              kata: kamus['kata'],
-              makna: kamus['makna'],
-              deskripsi: kamus['deskripsi'],
+              kata: kamus.kata,
+              makna: kamus.makna,
+              deskripsi: kamus.deskripsi,
             ),
           ),
         ],

@@ -2,15 +2,17 @@ part of 'pages.dart';
 
 class Template extends StatelessWidget {
   final Widget child;
+  final Color backColor;
 
-  const Template({this.child});
+  const Template({this.child, this.backColor});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(children: [
         Container(
-          color: Color(0xffFFFFFF),
+          color: backColor ?? Color(0xffFFFFFF),
         ),
         SafeArea(
           child: Row(

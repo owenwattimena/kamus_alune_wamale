@@ -13,9 +13,10 @@ class ListCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     FlutterTts flutterTts = FlutterTts();
 
-  Future _speak(String kata) async {
-    var result = await flutterTts.speak(kata);
-  }
+    Future _speak(String kata) async {
+      await flutterTts.speak(kata);
+    }
+
     return Expanded(
       child: GestureDetector(
         onTap: onTap,
@@ -63,7 +64,7 @@ class ListCardWidget extends StatelessWidget {
                 ),
                 IconButton(
                   icon: new Icon(MdiIcons.volumeHigh, color: Colors.white),
-                  onPressed: (){
+                  onPressed: () {
                     _speak(kata);
                   },
                 )

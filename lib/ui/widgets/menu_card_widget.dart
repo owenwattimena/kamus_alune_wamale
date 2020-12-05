@@ -14,7 +14,7 @@ class MenuCardWidget extends StatelessWidget {
           onTap();
         },
         child: Container(
-          height: 130,
+          height: 80,
           decoration: BoxDecoration(
             color: primaryColor,
             borderRadius: BorderRadius.circular(10),
