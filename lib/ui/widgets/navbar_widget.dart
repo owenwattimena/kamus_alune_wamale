@@ -33,9 +33,16 @@ class NavbarWidget extends StatelessWidget {
                       image: AssetImage("assets/images/back_icon.png"))),
             ),
           ),
-          Text(
-            '$title',
-            style: blackFontStyle2.copyWith(fontSize: 18),
+          Expanded(
+            child: FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Text(
+                '$title',
+                // overflow: TextOverflow.clip,
+                // softWrap: true,
+                style: blackFontStyle2.copyWith(fontSize: 18),
+              ),
+            ),
           ),
           (showInfo)
               ? InkWell(
