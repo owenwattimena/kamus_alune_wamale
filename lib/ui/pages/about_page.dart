@@ -20,7 +20,7 @@ class AboutPage extends StatelessWidget {
                   style: blackFontStyle3.copyWith(color: Colors.white)),
               // title: 'GF Accordion',
               content:
-                  'GetWidget is an open source library that comes with pre-build 1000+ UI components.',
+                  'Kamus yang berisikan tentang data bahasa Alune dan Wemale.\nWemale dan Alune adalah dua suku tertua di pulau Seram yang dikelompokan dalam rumpun patasiwa.\nSebagian besar suku Wemale dan Alune bertani dan makan pokok mereka adalah sagu.\nSuku Wemale adalah masyarakat yang mendiami pulau Seram Bagian Barat,\nsedangkan Alune adalah masyarakat di wilayah barat-tengah pulau. ',
               collapsedIcon: Icon(Icons.add, color: Colors.white),
               expandedIcon: Icon(Icons.minimize, color: Colors.white)),
           GFAccordion(
@@ -29,8 +29,7 @@ class AboutPage extends StatelessWidget {
               titleChild: Text('Peneliti',
                   style: blackFontStyle3.copyWith(color: Colors.white)),
               // title: 'GF Accordion',
-              content:
-                  'GetWidget is an open source library that comes with pre-build 1000+ UI components.',
+              content: 'Nama : Jahra Ely \nNIM : 1316144086 \n',
               collapsedIcon: Icon(Icons.add, color: Colors.white),
               expandedIcon: Icon(Icons.minimize, color: Colors.white)),
         ])

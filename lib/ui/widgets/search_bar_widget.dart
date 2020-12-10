@@ -1,6 +1,12 @@
 part of 'widgets.dart';
 
 class SearchBarWidget extends StatefulWidget {
+  final Function(String) onSearch;
+  final String kategori;
+
+  const SearchBarWidget({Key key, this.onSearch, this.kategori})
+      : super(key: key);
+
   @override
   _SearchBarWidgetState createState() => _SearchBarWidgetState();
 }
@@ -33,6 +39,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             Expanded(
               child: TextField(
                   controller: searchController,
+                  onChanged: (val) => widget.onSearch(val),
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintStyle: greyFontStyle,

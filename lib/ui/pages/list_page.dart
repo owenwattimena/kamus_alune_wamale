@@ -9,63 +9,23 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
-  // List<Map<String, dynamic>> kamus = [
-  //   {
-  //     'kata': 'Kala',
-  //     'makna': 'makna',
-  //     'deskripsi': 'deskripsi',
-  //   },
-  //   {
-  //     'kata': 'Ku',
-  //     'makna': 'makna',
-  //     'deskripsi': 'deskripsi',
-  //   },
-  //   {
-  //     'kata': 'Seorang',
-  //     'makna': 'makna',
-  //     'deskripsi': 'deskripsi',
-  //   },
-  //   {
-  //     'kata': 'Diri',
-  //     'makna': 'makna',
-  //     'deskripsi': 'deskripsi',
-  //   },
-  //   {
-  //     'kata': 'Hanya',
-  //     'makna': 'makna',
-  //     'deskripsi': 'deskripsi',
-  //   },
-  //   {
-  //     'kata': 'Berteman',
-  //     'makna': 'makna',
-  //     'deskripsi': 'deskripsi',
-  //   },
-  //   {
-  //     'kata': 'Sepi',
-  //     'makna': 'makna',
-  //     'deskripsi': 'deskripsi',
-  //   },
-  //   {
-  //     'kata': 'dan angin',
-  //     'makna': 'makna',
-  //     'deskripsi': 'deskripsi',
-  //   },
-  //   {
-  //     'kata': 'malam',
-  //     'makna': 'makna',
-  //     'deskripsi': 'deskripsi',
-  //   },
-  // ];
+  Map<String, String> info = {
+    'alune':
+        'Bahasa Alune merupakan salah satu bahasa daerah di Pulau Seram, khususnya Seram Barat.\nFungsi bahasa Alune bagi pemakainya ialah\n(1) sebagai alat komunikasi dan bahasa pergaulan dalam kehidupan sehari-hari;\n(2) alat komunikasi pada upacara adat-istiadat dan upacara perkawinan (alamanang); \n(3) sebagai bahasa pengantar dalain sastra lisan yang dipadu dengan tarian cakalele, mamiri, maru-maru, otomaru, atau sastra lisan yang disampaikan secara bersenandung di waktu malam (wele-wele) ada yang berbentuk pantun dan ada juga yang berbentuk kapata.\nDaerah pemakai bahasa Alune berkisar di antara daerah aliran tiga sungai di Seram Baratt, yaitu Sungai Eti, Tala, dan Sapalew dan berkisar antara tiga wilayah kecamatan, yaitu Keeamatah Taniwal, Kechmatan Piru, dan Kecamatan Kairatu.',
+    'wemale':
+        'Suku Wemale adalah masyarakat yang mendiami pulau Seram Bagian Barat . \nMereka berjumlah 7.500 dan tinggal di 39 desa di pulau Seram.\nWemale adalah salah satu suku tertua di pulau Seram yang dikelompokan dalam rumpun patasiwa.\nSebagian besar suku Wemale bertani dan makan pokok mereka adalah sagu.\nSuku Wemale Nudusiwa adalah masyarakat yang mendiami pulau Seram Bagian Barat memiliki tradisi yang telah diwariskan secara turun temurun mengandung nilai kesakralan yang sangat dijunjung tinggi.'
+  };
 
   DatabaseService _databaseService = new DatabaseService();
 
   List<Kamus> kamus;
 
-  void getKamus(String kategori) {
+  void getKamus(String kategori, {String search}) {
     // Scaffold.of(context).hideCurrentSnackBar();
     final Future<Database> dbFuture = _databaseService.initDB();
     dbFuture.then((database) {
-      Future<List<Kamus>> kamusListFuture = _databaseService.getWhere(kategori);
+      Future<List<Kamus>> kamusListFuture =
+          _databaseService.getWhere(kategori, search: search);
       kamusListFuture.then((kamusList) {
         setState(() {
           kamus = kamusList;
@@ -89,7 +49,7 @@ class _ListPageState extends State<ListPage> {
         children: [
           // navbar widget
           NavbarWidget(
-            title: 'Kamus ${widget.kategori} - Indonesia',
+            title: 'Kamus ${widget.kategori.capitalizeFirstofEach} - Indonesia',
             onBackButtonPressed: () {
               Navigator.of(context).pop();
             },
@@ -98,8 +58,12 @@ class _ListPageState extends State<ListPage> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text("Alune"),
-                      content: Text("Dialog Content"),
+                      title: Text("${widget.kategori}"),
+                      content: ListView(children: [
+                        Text((widget.kategori == 'alune')
+                            ? info['alune'].capitalizeFirstofEach
+                            : info['wemale'].capitalizeFirstofEach)
+                      ]),
                       actions: [
                         FlatButton(
                           onPressed: () {
@@ -113,7 +77,12 @@ class _ListPageState extends State<ListPage> {
             },
           ),
           // search bar widget
-          SearchBarWidget(),
+          SearchBarWidget(
+            kategori: widget.kategori,
+            onSearch: (val) {
+              getKamus(widget.kategori, search: val);
+            },
+          ),
           // list of kamus
           Expanded(
               child: Container(
@@ -132,8 +101,9 @@ class _ListPageState extends State<ListPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                DetailPage(kamus: kamus[index])),
+                            builder: (context) => DetailPage(
+                                kamus: kamus[index],
+                                kategori: widget.kategori)),
                       );
                     },
                   ),

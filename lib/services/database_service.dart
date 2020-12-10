@@ -43,10 +43,19 @@ class DatabaseService {
   }
 
   // ambil data kamus dengan kondisi
-  Future<List<Kamus>> getWhere(String kategori) async {
+  Future<List<Kamus>> getWhere(String kategori, {String search}) async {
     Database db = await this.database;
-    var mapObject = await db.rawQuery(
-        "SELECT * FROM kamus WHERE kategori = '$kategori' ORDER BY kata ASC");
+    var sql;
+    if (search != null) {
+      sql =
+          "SELECT * FROM kamus WHERE kategori = '$kategori' AND ( kata LIKE '%$search%' OR makna LIKE '%$search%' ) ORDER BY kata ASC";
+    } else {
+      sql =
+          "SELECT * FROM kamus WHERE kategori = '$kategori' ORDER BY kata ASC";
+    }
+
+    var mapObject = await db.rawQuery(sql);
+
     int mapLength = mapObject.length;
     List<Kamus> listKamus = new List<Kamus>();
     for (int i = 0; i < mapLength; i++) {

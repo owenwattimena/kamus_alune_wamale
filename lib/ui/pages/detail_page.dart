@@ -2,8 +2,9 @@ part of 'pages.dart';
 
 class DetailPage extends StatelessWidget {
   final Kamus kamus;
+  final String kategori;
 
-  const DetailPage({this.kamus});
+  const DetailPage({this.kamus, this.kategori});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class DetailPage extends StatelessWidget {
       child: ListView(
         children: [
           NavbarWidget(
-            title: 'Kamus Alune - Indonesia',
+            title: 'Kamus ${kategori.capitalizeFirstofEach} - Indonesia',
             showInfo: false,
             onBackButtonPressed: () {
               Navigator.of(context).pop();
