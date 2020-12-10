@@ -38,8 +38,6 @@ class NavbarWidget extends StatelessWidget {
               fit: BoxFit.fitWidth,
               child: Text(
                 '$title',
-                // overflow: TextOverflow.clip,
-                // softWrap: true,
                 style: blackFontStyle2.copyWith(fontSize: 18),
               ),
             ),
